@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Website_BanHang.Models;
+using Web_BanHang.DBContext;
 
 #nullable disable
 
 namespace Web_BanHang.Migrations
 {
-    [DbContext(typeof(BanHangContext))]
-    partial class BanHangContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BHContext))]
+    partial class BHContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

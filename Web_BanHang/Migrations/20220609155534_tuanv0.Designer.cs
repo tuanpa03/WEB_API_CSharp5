@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Website_BanHang.Models;
+using Web_BanHang.DBContext;
 
 #nullable disable
 
 namespace Web_BanHang.Migrations
 {
-    [DbContext(typeof(BanHangContext))]
-    [Migration("20220609094751_tuanv0")]
+    [DbContext(typeof(BHContext))]
+    [Migration("20220609155534_tuanv0")]
     partial class tuanv0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
