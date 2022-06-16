@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Web_BanHang.Migrations
 {
-    public partial class tuanv0 : Migration
+    public partial class h1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,7 @@ namespace Web_BanHang.Migrations
                     CatCode = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CatName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(250)", maxLength: 250, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
@@ -36,7 +36,7 @@ namespace Web_BanHang.Migrations
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Gender = table.Column<bool>(type: "bit", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(250)", maxLength: 250, nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -67,7 +67,7 @@ namespace Web_BanHang.Migrations
                     CatCodeID = table.Column<int>(type: "int", maxLength: 20, nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Image = table.Column<byte[]>(type: "varbinary(250)", maxLength: 250, nullable: true),
                     Price = table.Column<float>(type: "real", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
                 },

@@ -7,7 +7,7 @@ namespace Website_BanHang.Models
         public int CatCode { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
         public float Price { get; set; }
         public string Note { get; set; }
         public IList<OrderDetails> OrderDetails { get; set; }

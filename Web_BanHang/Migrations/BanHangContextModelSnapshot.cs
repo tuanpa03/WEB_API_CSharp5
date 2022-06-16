@@ -3,23 +3,21 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Web_BanHang.DBContext;
+using Website_BanHang.Models;
 
 #nullable disable
 
 namespace Web_BanHang.Migrations
 {
-    [DbContext(typeof(BHContext))]
-    [Migration("20220609155534_tuanv0")]
-    partial class tuanv0
+    [DbContext(typeof(BanHangContext))]
+    partial class BanHangContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -41,9 +39,9 @@ namespace Web_BanHang.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("Image")
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("varbinary(250)");
 
                     b.HasKey("CatCode");
 
@@ -76,9 +74,9 @@ namespace Web_BanHang.Migrations
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("Image")
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("varbinary(250)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -166,9 +164,9 @@ namespace Web_BanHang.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CatCodeID");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("Image")
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("varbinary(250)");
 
                     b.Property<string>("Note")
                         .HasMaxLength(150)

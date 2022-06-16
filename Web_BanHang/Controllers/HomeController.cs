@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text;
+using Newtonsoft.Json;
 using Web_BanHang.Models;
+using Website_BanHang.Models;
 
 namespace Web_BanHang.Controllers
 {
@@ -15,6 +18,8 @@ namespace Web_BanHang.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.email = HttpContext.Session.GetString("email");
+            ViewBag.password = HttpContext.Session.GetString("password");
             return View();
         }
 
@@ -27,6 +32,50 @@ namespace Web_BanHang.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Login(string email, string password)
+        {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                return View();
+            }
+            SearchInfo(email, password);
+            HttpContext.Session.SetString("username", email);
+            HttpContext.Session.SetString("password", password);
+
+            return RedirectToAction("Index");
+        }
+        public static Customers SearchInfo(string email, string password)
+        {
+            HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+            client.BaseAddress = new Uri("https://localhost:7138/api/CustomersAPI/login/");
+            var JsonConnect = client.GetAsync("login").Result;//Trả về json
+            string JsonData = JsonConnect.Content.ReadAsStringAsync().Result;//trả về string
+            //đọc list ddataa đối tượng 
+            var model = JsonConvert.DeserializeObject<Customers>(JsonData);
+            return model;
+        }
+
+       
+        public IActionResult Register([Bind("Email,Password,FullName,Address,Gender,PhoneNumber,Status")] Customers _customers)
+        {
+            TryUpdateModelAsync("Image");
+            var debug = ModelState.IsValid;
+            HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+            client.BaseAddress = new Uri("https://localhost:7138/api/CustomersAPI/register");
+            var JsonPush = client.PostAsJsonAsync("register", _customers).Result;//Trả về json
+            if (JsonPush.IsSuccessStatusCode == true)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
+        public IActionResult Logout()
+        {
+
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index");
         }
     }
 }
