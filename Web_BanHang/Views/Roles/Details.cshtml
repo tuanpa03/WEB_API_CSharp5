@@ -1,31 +1,37 @@
 ﻿@model Website_BanHang.Models.Roles
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Chi tiết quyền truy cập";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
+<h3>Chi tiết quyền truy cập 🧐🧐🧐</h3>
 <div>
-    <h4>Roles</h4>
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a>Chi tiết quyền truy cập</a></li>
+        </ol>
+    </nav>
+</div>
+<div>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoleName)
+            Quyền truy cập:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.RoleName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+            Mô tả chi tiết:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.RoleCode">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="mb-2">
+    <a class="btn btn-primary" type="button" asp-action="Edit" asp-route-id="@Model.RoleCode">Edit</a>
+    <a class="btn btn-secondary" type="button" asp-action="Index">Back to List</a>
 </div>

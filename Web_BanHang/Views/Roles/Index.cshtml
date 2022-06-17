@@ -1,42 +1,61 @@
 ﻿@model IEnumerable<Website_BanHang.Models.Roles>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý quyền truy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Index</h1>
+<h3>Danh sách quyền truy cập hệ thống 😉😉😉</h3>
+<div class="page-header">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a>Danh sách quyền truy cập</a></li>
+        </ol>
+    </nav>
+</div>
+<br />
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-primary" type="button" asp-action="Create">Thêm mới quyền</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.RoleName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th></th>
+            <th></th>*@
+            <th>#</th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.RoleName)*@
+                Quyền truy cập
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Description)*@
+                Mô tả chi tiết
+            </th>
+            <th>Chức năng</th>
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RoleCode">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RoleCode">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RoleCode">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody style="vertical-align: middle;">
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RoleCode</td>
+                <td>@item.RoleName</td>
+                <td>@item.Description</td>
+                <td class="d-grid gap-2 d-md-block">
+                    <a class="btn btn-primary" type="button" asp-action="Edit" asp-route-id="@item.RoleCode">Edit</a>
+                    <a class="btn btn-warning" type="button" asp-action="Details" asp-route-id="@item.RoleCode">View</a>
+                    <a class="btn btn-danger" type="button" asp-action="Delete" asp-route-id="@item.RoleCode">Delete</a>
+                </td>
+            </tr>
+        }
+    }
     </tbody>
 </table>

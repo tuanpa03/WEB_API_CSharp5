@@ -1,37 +1,40 @@
 ﻿@model Website_BanHang.Models.Roles
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo thêm quyền truy cập";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Create</h1>
-
-<h4>Roles</h4>
+<h3>Tạo thêm quyền truy cập 😂😂😂</h3>
+<div class="page-header">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a>Tạo thêm quyền truy cập</a></li>
+        </ol>
+    </nav>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RoleName" class="control-label"></label>
+                <label class="control-label">Tên quyền truy cập:</label>
                 <input asp-for="RoleName" class="form-control" />
                 <span asp-validation-for="RoleName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label class="control-label">Mô tả:</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Tạo mới" class="btn btn-primary mt-2" />
+                <br />
+                <input asp-action="Index" type="submit" value="Quay về danh sách" class="btn btn-secondary mb-2" style="margin-top: 6px" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
