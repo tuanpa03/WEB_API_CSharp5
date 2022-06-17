@@ -24,10 +24,11 @@ namespace Web_BanHang.APIController
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Staffs>>> GetStaffs()
         {
-          if (_context.Staffs == null)
-          {
-              return NotFound();
-          }
+            if (_context.Staffs == null)
+            {
+                return NotFound();
+            }
+
             return await _context.Staffs.ToListAsync();
         }
 
@@ -35,10 +36,11 @@ namespace Web_BanHang.APIController
         [HttpGet("{id}")]
         public async Task<ActionResult<Staffs>> GetStaffs(int id)
         {
-          if (_context.Staffs == null)
-          {
-              return NotFound();
-          }
+            if (_context.Staffs == null)
+            {
+                return NotFound();
+            }
+
             var staffs = await _context.Staffs.FindAsync(id);
 
             if (staffs == null)
@@ -85,10 +87,11 @@ namespace Web_BanHang.APIController
         [HttpPost]
         public async Task<ActionResult<Staffs>> PostStaffs(Staffs staffs)
         {
-          if (_context.Staffs == null)
-          {
-              return Problem("Entity set 'BanHangContext.Staffs'  is null.");
-          }
+            if (_context.Staffs == null)
+            {
+                return Problem("Entity set 'BanHangContext.Staffs'  is null.");
+            }
+
             _context.Staffs.Add(staffs);
             await _context.SaveChangesAsync();
 
@@ -103,6 +106,7 @@ namespace Web_BanHang.APIController
             {
                 return NotFound();
             }
+
             var staffs = await _context.Staffs.FindAsync(id);
             if (staffs == null)
             {
@@ -119,6 +123,7 @@ namespace Web_BanHang.APIController
         {
             return (_context.Staffs?.Any(e => e.StaffCode == id)).GetValueOrDefault();
         }
+
         [HttpPost("register")]
         public async Task<ActionResult<Staffs>> Register(Staffs staffs)
         {
@@ -126,11 +131,13 @@ namespace Web_BanHang.APIController
             {
                 return Problem("Entity set 'BanHangContext.Staffs'  is null.");
             }
+
             _context.Staffs.Add(staffs);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetStaffs", new { id = staffs.StaffCode }, staffs);
         }
+
         [HttpGet("login")]
         public async Task<ActionResult<Staffs>> Login(string email, string password)
         {
@@ -138,6 +145,7 @@ namespace Web_BanHang.APIController
             {
                 return NotFound();
             }
+
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 return Problem("Username or password must not empty");
@@ -150,6 +158,7 @@ namespace Web_BanHang.APIController
                 {
                     return Problem("User not found");
                 }
+
                 return info;
             }
             catch (Exception)
@@ -157,4 +166,5 @@ namespace Web_BanHang.APIController
                 return Problem("Unknown error");
             }
         }
+    }
 }

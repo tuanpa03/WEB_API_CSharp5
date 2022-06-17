@@ -48,8 +48,8 @@ namespace Web_BanHang.Controllers
         public static Customers SearchInfo(string email, string password)
         {
             HttpClient client = new HttpClient();//set đường dẫn cơ bản 
-            client.BaseAddress = new Uri("https://localhost:7138/api/CustomersAPI/login/");
-            var JsonConnect = client.GetAsync("login").Result;//Trả về json
+            client.BaseAddress = new Uri("https://localhost:7138/");
+            var JsonConnect = client.GetAsync("api/CustomersAPI/login").Result;//Trả về json
             string JsonData = JsonConnect.Content.ReadAsStringAsync().Result;//trả về string
             //đọc list ddataa đối tượng 
             var model = JsonConvert.DeserializeObject<Customers>(JsonData);
@@ -57,16 +57,23 @@ namespace Web_BanHang.Controllers
         }
 
        
-        public IActionResult Register([Bind("Email,Password,FullName,Address,Gender,PhoneNumber,Status")] Customers _customers)
+        public IActionResult Register([Bind("Email,Password,FullName,Address,Gender,PhoneNumber,Status")] Customers _customers, IFormFile image)
         {
-            TryUpdateModelAsync("Image");
-            var debug = ModelState.IsValid;
-            HttpClient client = new HttpClient();//set đường dẫn cơ bản 
-            client.BaseAddress = new Uri("https://localhost:7138/api/CustomersAPI/register");
-            var JsonPush = client.PostAsJsonAsync("register", _customers).Result;//Trả về json
-            if (JsonPush.IsSuccessStatusCode == true)
+            ModelState.Remove("Image");
+            if (ModelState.IsValid && image != null)
             {
-                return RedirectToAction("Login");
+                using (var stream = new MemoryStream())
+                {
+                    image.CopyToAsync(stream);
+                    _customers.Image = stream.ToArray();
+                }
+                HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+                client.BaseAddress = new Uri("https://localhost:7138/");
+                var JsonPush = client.PostAsJsonAsync("api/CustomersAPI/register", _customers).Result;//Trả về json
+                if (JsonPush.IsSuccessStatusCode == true)
+                {
+                    return RedirectToAction("Login");
+                }
             }
             return View();
         }

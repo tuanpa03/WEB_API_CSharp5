@@ -101,15 +101,21 @@ namespace Web_BanHang.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CatCode,CatName,Image,Description")] Categroies categroies)
+        public async Task<IActionResult> Edit(int id, [Bind("CatCode,CatName,Description")] Categroies categroies,IFormFile image)
         {
+            ModelState.Remove("Image");
             if (id != categroies.CatCode)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && image != null)
             {
+                using (var stream = new MemoryStream())
+                {
+                    image.CopyToAsync(stream);
+                    categroies.Image = stream.ToArray();
+                }
                 ModelState.Remove("products");
                 HttpClient client = new HttpClient();//set đường dẫn cơ bản 
                 client.BaseAddress = new Uri("https://localhost:7138/");
@@ -133,7 +139,7 @@ namespace Web_BanHang.Controllers
                 return NotFound();
             }
             var staffs = await _context.Categroies
-                .FirstOrDefaultAsync(m => m. == id);
+                .FirstOrDefaultAsync(m => m.CatCode == id);
             if (staffs == null)
             {
                 return NotFound();
