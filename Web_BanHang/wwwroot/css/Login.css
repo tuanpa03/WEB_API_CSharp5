@@ -22,7 +22,7 @@ body {
 
 .container {
     position: relative;
-    max-width: 430px;
+    max-width: 480px;
     width: 100%;
     background: #fff;
     border-radius: 10px;
@@ -47,6 +47,7 @@ body {
     }
 
     .container.active .login {
+        align-items: center;
         margin-left: -50%;
         opacity: 0;
         transition: margin-left 0.18s ease, opacity 0.15s ease;
@@ -63,7 +64,7 @@ body {
     }
 
     .container.active .forms {
-        height: 600px;
+        height: 1100px;
     }
 
     .container .form .title {
@@ -185,3 +186,4 @@ body {
     margin-top: 30px;
     text-align: center;
 }
+

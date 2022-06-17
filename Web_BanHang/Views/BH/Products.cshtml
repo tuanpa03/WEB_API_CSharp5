@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Website_BanHang.Models.Products>
+
+@{
+}
+
+@{
+    <body style="padding-top: 160px">
+        <div class="new_arrivals">
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="section_title new_arrivals_title">
+                            <img src="https://2.bp.blogspot.com/-TwFPNu5wBxo/WQGiuOZ5DoI/AAAAAAABd-E/TIRLyfHj0aQ8-SwnKFcdQkRYpBRwBj-AACLcB/s1600/1459257126.jpg" alt="" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="product-grid" data-isotope="{ &quot;itemSelector&quot;: &quot;.product-item&quot;, &quot;layoutMode&quot;: &quot;fitRows&quot; }" style="position: relative; height: 1380px;">
+                            @foreach (var x in Model)
+                            {
+                                <a asp-controller="BH" asp-action="Single" asp-route-id="@x.ProductCode">
+                                    <div class="product-item men" style="position: absolute; left: 0px; top: 0px;">
+                                        <div class="product discount product_filter" style="border-right: 1px solid rgb(233, 233, 233);">
+                                            <div class="product_image">
+                                                <img src="~/@x.Image" alt="">
+                                            </div>
+                                            <div class="product_info">
+                                                <h6 class="product_name">@x.ProductName<span style="color: red"> x @x.Quantity</span></h6>
+                                                <div class="product_price">@x.Price VND</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+}

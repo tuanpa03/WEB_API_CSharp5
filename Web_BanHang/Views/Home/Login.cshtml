@@ -1,69 +1,70 @@
 ﻿@model Website_BanHang.Models.Customers
 <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/plugins/font-awesome-4.7.0/css/font-awesome.min.css" asp-append-version="true" />
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
 @{
     ViewBag.Title = "title";
-    Layout = "_Layout";
+    Layout = "_LayoutLogin";
 }
 @*
-<main class="main-content">
+    <main class="main-content">
     <div class="breadcrumb-area breadcrumb-height" data-bg-image="~/assets/images/breadcrumb/bg/1-1-1920x373.jpg">
-        <div class="container h-100">
-            <div class="row h-100">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-item">
-                        <h2 class="breadcrumb-heading">Product Related</h2>
-                        <ul>
-                            <li>
-                                <a href="index.html">Home <i class="pe-7s-angle-right"></i></a>
-                            </li>
-                            <li>Login</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container h-100">
+    <div class="row h-100">
+    <div class="col-lg-12">
+    <div class="breadcrumb-item">
+    <h2 class="breadcrumb-heading">Product Related</h2>
+    <ul>
+    <li>
+    <a href="index.html">Home <i class="pe-7s-angle-right"></i></a>
+    </li>
+    <li>Login</li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    </div>
     </div>
     <div class="login-register-area section-space-y-axis-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <form asp-controller="Home" asp-action="Login" method="post">
-                        <div class="login-form">
-                            <h4 class="login-title">Login</h4>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <label>Username*</label>
-                                    <input type="text" name="username" placeholder="Username">
-                                </div>
-                                <div class="col-lg-12">
-                                    <label>Password</label>
-                                    <input type="password" name="password" placeholder="Password">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="check-box">
-                                        <input type="checkbox" id="remember_me">
-                                        <label for="remember_me">Remember me</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 pt-1 mt-md-0">
-                                    <div class="forgotton-password_info">
-                                        <a href="#"> Forgotten password?</a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 pt-5">
-                                    <button type="submit" class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0">Login</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
+    <div class="container">
+    <div class="row">
+    <div class="col-lg-6">
+    <form asp-controller="Home" asp-action="Login" method="post">
+    <div class="login-form">
+    <h4 class="login-title">Login</h4>
+    <div class="row">
+    <div class="col-lg-12">
+    <label>Username*</label>
+    <input type="text" name="username" placeholder="Username">
     </div>
-</main>*@
+    <div class="col-lg-12">
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Password">
+    </div>
+    <div class="col-md-8">
+    <div class="check-box">
+    <input type="checkbox" id="remember_me">
+    <label for="remember_me">Remember me</label>
+    </div>
+    </div>
+    <div class="col-md-4 pt-1 mt-md-0">
+    <div class="forgotton-password_info">
+    <a href="#"> Forgotten password?</a>
+    </div>
+    </div>
+    <div class="col-lg-12 pt-5">
+    <button type="submit" class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0">Login</button>
+    </div>
+    </div>
+    </div>
+    </form>
+    </div>
+
+    </div>
+    </div>
+    </div>
+    </main>*@
 
 
 @*********************@
@@ -107,13 +108,14 @@
 
         <!-- Registration Form -->
         <div class="form signup">
-            <span class="title">Đăng kí tài khoản</span>
+            <span class="title">Đăng kí thành viên</span>
 
             <form asp-controller="Home" asp-action="Register" method="post">
-                @*<div class="input-field">
-                    <input type="text" asp-for="FullName" placeholder="Enter your name" required>
+
+                <div class="input-field">
+                    <input type="text" asp-for="FullName" placeholder="Họ và tên" required>
                     <i class="uil uil-user"></i>
-                </div>*@
+                </div>
                 <div class="input-field">
                     <input type="text" asp-for="Email" placeholder="Nhập email*" required>
                     <i class="uil uil-envelope icon"></i>
@@ -127,24 +129,53 @@
                     <i class="uil uil-lock icon"></i>
                     <i class="uil uil-eye-slash showHidePw"></i>
                 </div>
-                @*<div class="input-field">
-                    <input type="text" asp-for="Address" placeholder="Address" required>
-                    <i class="uil uil-user"></i>
-                </div>
                 <div class="input-field">
                     <input type="text" asp-for="PhoneNumber" placeholder="Phone number" required>
-                    <i class="uil uil-user"></i>
+                    <i class="fa fa-phone" aria-hidden="true"></i>
                 </div>
                 <div class="input-field">
-                    <label>Gender</label>
-                    <input type="radio" asp-for="Gender" value="false" placeholder="Nam"> Nam
-                    <input type="radio" asp-for="Gender" value="true" placeholder="Nữ"> Nữ
+                    <input type="text" asp-for="Address" placeholder="Địa chỉ" required>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                </div>
+                <div class="mt-4">
+                    <label for="formFileMultiple" class="form-label">Chọn ảnh đại diện</label>
+                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                </div>
+                <div class="checkbox-text row align-items-start">
+                    <label class="col-5">Giơi tính:</label>
+                    <div class="col-7">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">Nam</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">Nữ</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox-text row align-items-start">
+                    <label class="col-5">Trạng thái:</label>
+                    <div class="col-7">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault11">
+                            <label class="form-check-label" for="flexRadioDefault11">Hoạt động</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault22" checked>
+                            <label class="form-check-label" for="flexRadioDefault22">Không hoạt động</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="input-field">
-                    <input type="text" asp-for="Image" placeholder="Chose image" required>
-                    <i class="uil uil-user"></i>
-                </div>*@
-
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Chọn quyền truy cập</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                
                 <div class="checkbox-text">
                     <div class="checkbox-content">
                         <input type="checkbox" id="sigCheck">
@@ -210,40 +241,40 @@
 
 <!-- Code injected by live-server -->
 <script type="text/javascript">
-        // <![CDATA[  <-- For SVG support
-        if ('WebSocket' in window) {
-            (function () {
-                function refreshCSS() {
-                    var sheets = [].slice.call(document.getElementsByTagName("link"));
-                    var head = document.getElementsByTagName("head")[0];
-                    for (var i = 0; i < sheets.length; ++i) {
-                        var elem = sheets[i];
-                        var parent = elem.parentElement || head;
-                        parent.removeChild(elem);
-                        var rel = elem.rel;
-                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-                        }
-                        parent.appendChild(elem);
+    // <![CDATA[  <-- For SVG support
+    if ('WebSocket' in window) {
+        (function () {
+            function refreshCSS() {
+                var sheets = [].slice.call(document.getElementsByTagName("link"));
+                var head = document.getElementsByTagName("head")[0];
+                for (var i = 0; i < sheets.length; ++i) {
+                    var elem = sheets[i];
+                    var parent = elem.parentElement || head;
+                    parent.removeChild(elem);
+                    var rel = elem.rel;
+                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
                     }
+                    parent.appendChild(elem);
                 }
-                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                var address = protocol + window.location.host + window.location.pathname + '/ws';
-                var socket = new WebSocket(address);
-                socket.onmessage = function (msg) {
-                    if (msg.data == 'reload') window.location.reload();
-                    else if (msg.data == 'refreshcss') refreshCSS();
-                };
-                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                    console.log('Live reload enabled.');
-                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                }
-            })();
-        }
-        else {
-            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-        }
+            }
+            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+            var address = protocol + window.location.host + window.location.pathname + '/ws';
+            var socket = new WebSocket(address);
+            socket.onmessage = function (msg) {
+                if (msg.data == 'reload') window.location.reload();
+                else if (msg.data == 'refreshcss') refreshCSS();
+            };
+            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                console.log('Live reload enabled.');
+                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+            }
+        })();
+    }
+    else {
+        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+    }
     // ]]>
 </script>
 

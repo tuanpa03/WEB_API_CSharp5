@@ -11,11 +11,20 @@ namespace Web_BanHang.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+            
         }
+        static string user = null;
+        public string getuser()
+        {
+            if (user != null)
+            {
+                return user;
+            }
 
+            return null;
+        }
         public IActionResult Index()
         {
             ViewBag.email = HttpContext.Session.GetString("email");
@@ -43,6 +52,7 @@ namespace Web_BanHang.Controllers
             HttpContext.Session.SetString("username", email);
             HttpContext.Session.SetString("password", password);
 
+            user = email;
             return RedirectToAction("Index");
         }
         public static Customers SearchInfo(string email, string password)

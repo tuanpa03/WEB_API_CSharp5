@@ -4,51 +4,149 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web_BanHang</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web_BanHang.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/styles/bootstrap4/bootstrap.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/plugins/font-awesome-4.7.0/css/font-awesome.min.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/plugins/OwlCarousel2-2.2.1/owl.carousel.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/plugins/OwlCarousel2-2.2.1/owl.theme.default.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/plugins/OwlCarousel2-2.2.1/animate.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/styles/main_styles.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/styles/responsive.css" asp-append-version="true">
+    @using Web_BanHang.Models
+    @using Microsoft.AspNetCore.Http
+    @using Web_BanHang.Controllers
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web_BanHang</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Account</a>
-                        </li>
-                        
-                        @*****************@
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Role</a>
-                        </li>
-                    </ul>
+@{
+    HomeController _controller = new HomeController();
+    var u = _controller.getuser();
+}
+<div class="super_container">
+    <header class="header trans_300" style="top: 0px;">
+
+        <!-- Top Navigation -->
+
+        <div class="top_nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        @*<div class="top_nav_left"><a asp-controller="Quanly" asp-action="Index">Trang quản lý</a></div>*@
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="top_nav_right">
+                            <ul class="top_nav_menu">
+                                <li class="account">
+                                    @if (@u != null)
+                                    {
+                                        <a href="#" style="width: 120px">
+                                            @u
+                                            <i class="fa fa-angle-down"></i>
+                                            <ul class="account_selection">
+                                                <li>
+                                                    <a asp-controller="Home" asp-action="Logout"><i class="fa fa-sign-in" aria-hidden="true"></i>Log out</a>
+                                                </li>
+                                            </ul>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Home" asp-action="Login">
+                                            Đăng nhập
+                                            <i class=""></i>
+                                        </a>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </div>
+
+        <!-- Main Navigation -->
+
+        <div class="main_nav_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-right">
+                        <div class="logo_container">
+                            <a asp-controller="Home" asp-action="Index">colo<span>shop</span></a>
+                        </div>
+                        <nav class="navbar">
+                            <ul class="navbar_menu">
+                                <form class="input-group mb-3" asp-controller="BH" asp-action="Products">
+                                    <input id="keystr" name="keystr" type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    
+                                    @*<input id="keystr" name="keystr" type="search" value="">
+                                    <button class="btn btn-outline-secondary" type="submit">Search</button>*@
+                                </form>
+                            </ul>
+                            <ul class="navbar_user">
+                                
+                                @*<li><a asp-controller="Home" asp-action="ShowAfterLogin"><i class="fa fa-user" aria-hidden="true"></i></a></li>*@
+                                <li class="checkout">
+                                    <a asp-controller="BH" asp-action="Giohang">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        <span id="checkout_items" class="checkout_items"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="hamburger_container">
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </header>
+    <div class="hamburger_menu">
+        <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+        <div class="hamburger_menu_content text-right">
+            <ul class="menu_top_nav">
+
+                <li class="menu_item has-children">
+                    <a href="#">
+                        My Account
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="menu_selection">
+                        <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+                        <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+                    </ul>
+                </li>
+                <li class="menu_item"><a href="#">home</a></li>
+                <li class="menu_item"><a href="#">shop</a></li>
+                <li class="menu_item"><a href="#">promotion</a></li>
+                <li class="menu_item"><a href="#">pages</a></li>
+                <li class="menu_item"><a href="#">blog</a></li>
+                <li class="menu_item"><a href="#">contact</a></li>
+            </ul>
+        </div>
+    </div>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-@*    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Web_BanHang - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-3.2.1.min.js" asp-append-version="true"></script>
+    <script src="~/styles/bootstrap4/popper.js" asp-append-version="true"></script>
+    <script src="~/styles/bootstrap4/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/plugins/Isotope/isotope.pkgd.min.js" asp-append-version="true"></script>
+    <script src="~/plugins/OwlCarousel2-2.2.1/owl.carousel.js" asp-append-version="true"></script>
+    <script src="~/plugins/easing/easing.js" asp-append-version="true"></script>
+    <script src="~/js/custom.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+</div>
 </body>
 </html>

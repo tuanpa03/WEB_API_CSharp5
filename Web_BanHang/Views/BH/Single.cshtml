@@ -1,0 +1,89 @@
+﻿@model Website_BanHang.Models.Products
+@section scripts{
+    <script>
+        $(function () {           
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(2000).slideUp(500);
+        });
+    </script>
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+    <link href="/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" href="/plugins/themify-icons/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/styles/single_styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles/single_responsive.css">
+</head>
+<body>
+<div class="super_container">
+    <div class="container single_product_container">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="single_product_pics">
+                <div class="row">
+                    <div class="col-lg-12 image_col order-lg-2 order-1">
+                        <div class="single_product_image">
+                            <div class="single_product_image_background">
+                                <img src="~/@Model.Image"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="product_details">
+                <div class="product_details_title">
+                    <h2>@Model.ProductName<span style="color: red"> x @Model.Quantity</span></h2>
+                    <p>Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut...</p>
+                </div>
+                <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                    <span class="ti-truck"></span><span>free delivery</span>
+                </div>
+                <div class="product_price">@Model.Price</div>
+                <ul class="star_rating">
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                </ul>
+                <div class="product_color">
+                    <span>Select Color:</span>
+                    <ul>
+                        <li style="background: #e54e5d"></li>
+                        <li style="background: #252525"></li>
+                        <li style="background: #60b3f3"></li>
+                    </ul>
+                </div>
+                <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                    <span>Quantity:</span>
+                    <form asp-controller="BH" asp-action="Addgiohang" asp-route-id="@Model.ProductCode">
+                        @Html.TextBox("query")
+                        <input type="submit" value="Add" class="btn btn-primary"/>
+                    </form>
+                </div>
+                @if (TempData["mess"] != null)
+                {
+                    <div id="AlertBox" class="alert hide" role="alert">
+                        <h6 style="color: aqua">@TempData["mess"]</h6>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="styles/bootstrap4/popper.js"></script>
+    <script src="styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="plugins/easing/easing.js"></script>
+    <script src="plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="js/single_custom.js"></script>
+</body>

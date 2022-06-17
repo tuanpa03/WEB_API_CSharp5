@@ -1,0 +1,89 @@
+﻿@using Website_BanHang.Models
+@model IEnumerable<Website_BanHang.Models.OrderDetails>
+
+@{
+    ViewData["Title"] = "Giohang";
+    var lsthangs = ViewData["lsthangs"] as List<Products>;
+}
+@section scripts{
+<script>
+    $(function () {
+        $('#AlertBox').removeClass('hide');
+        $('#AlertBox').delay(2000).slideUp(500);
+    });
+</script>
+}
+<h1>Giỏ hàng</h1>
+
+<p>
+
+</p>
+<body style="padding-top: 160px">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Tên hàng
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Giá (VNĐ)
+                </th>
+                <th><a asp-controller="BH" asp-action="Deleteall">Xóa hết</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a @*asp-controller="Home" asp-action="Single" asp-route-id="@item.Mahang"*@>@lsthangs.FirstOrDefault(c => c.ProductCode == item.ProductCode).ProductName</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @tong(lsthangs.FirstOrDefault(c=>c.ProductCode==@item.ProductCode).Price, @item.Quantity)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Xóa", "Deletegiohang","BH", new { idorder = @item.OrderCode, idproduct = @item.ProductCode })
+                        @*<a asp-action="Deletegiohang" asp-route-id="@item.MaCthdban" style="font-style: italic; text-decoration-line: underline">Xóa</a>*@
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Tổng</td>
+                <td></td>
+                <td>@alltinhtong()</td>
+                <td><a asp-action="Thanhtoan" style="font-weight: bold">Thanh toán</a></td>
+            </tr>
+        </tfoot>
+    </table>
+    @if (TempData["thongbao"] != null)
+    {
+        <div id="AlertBox" class="alert hide" role="alert">
+            <h6 style="color: aqua">@TempData["thongbao"]</h6>
+        </div>
+    }
+</body>
+@{
+    double alltinhtong()
+    {
+        double tong = 0;
+        foreach (var c in Model)
+        {
+            tong += lsthangs.FirstOrDefault(v=>v.ProductCode== c.ProductCode).Price * c.Quantity;
+        }
+        return tong;
+    }
+
+    double tong(double a, int b)
+    {
+        return a * b;
+    }
+}
