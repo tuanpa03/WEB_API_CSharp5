@@ -96,7 +96,7 @@ namespace Web_BanHang.APIController
         }
 
         // DELETE: api/Categroies/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete-categories/{id}")]
         public async Task<IActionResult> DeleteCategroies(int id)
         {
             if (_context.Categroies == null)

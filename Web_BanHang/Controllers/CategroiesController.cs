@@ -132,21 +132,14 @@ namespace Web_BanHang.Controllers
             {
                 return NotFound();
             }
-
-           if (ModelState.IsValid)
+            var staffs = await _context.Categroies
+                .FirstOrDefaultAsync(m => m. == id);
+            if (staffs == null)
             {
-                ModelState.Remove("products");
-                HttpClient client = new HttpClient();//set đường dẫn cơ bản 
-                client.BaseAddress = new Uri("https://localhost:7138/");
-                if (ModelState.IsValid)
-                {
-                    var jsonContent = await client.DeleteAsync("api/CategroiesAPI/update-categories/" + id);
-                    if (jsonContent.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                }
+                return NotFound();
             }
+
+
 
             return View();
         }
@@ -160,14 +153,22 @@ namespace Web_BanHang.Controllers
             {
                 return Problem("Entity set 'BanHangContext.Categroies'  is null.");
             }
-            var categroies = await _context.Categroies.FindAsync(id);
-            if (categroies != null)
+            if (ModelState.IsValid)
             {
-                _context.Categroies.Remove(categroies);
+                ModelState.Remove("products");
+                HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+                client.BaseAddress = new Uri("https://localhost:7138/");
+                if (ModelState.IsValid)
+                {
+                    var jsonContent = await client.DeleteAsync("api/CategroiesAPI/delete-categories/" + id);
+                    if (jsonContent.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View();
         }
 
         private bool CategroiesExists(int id)
