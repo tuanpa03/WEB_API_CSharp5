@@ -138,7 +138,7 @@ namespace Web_BanHang.APIController
             return CreatedAtAction("GetStaffs", new { id = staffs.StaffCode }, staffs);
         }
 
-        [HttpGet("login")]
+        [HttpGet("login/{email}/{password}")]
         public async Task<ActionResult<Staffs>> Login(string email, string password)
         {
             if (_context.Staffs == null)

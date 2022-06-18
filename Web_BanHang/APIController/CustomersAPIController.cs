@@ -109,7 +109,8 @@ namespace Web_BanHang.APIController
         {
             return (_context.Customers?.Any(e => e.CustomerCode == id)).GetValueOrDefault();
         }
-        [HttpGet("login")]
+        [HttpGet("login/{email}/{password}")]
+
         public async Task<ActionResult<Customers>> Login(string email, string password)
         {
             if (_context.Customers == null)
@@ -136,7 +137,7 @@ namespace Web_BanHang.APIController
             }
         }
         [HttpPost("register")]
-        public async Task<ActionResult<Customers>> Register([FromBody]Customers customers)
+        public async Task<ActionResult<Customers>> Register(Customers customers)
         {
             if (_context.Customers == null)
             {

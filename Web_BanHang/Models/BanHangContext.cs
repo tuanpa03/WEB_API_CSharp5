@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Website_BanHang.Models;
 
@@ -6,13 +7,13 @@ namespace Website_BanHang.Models
 {
     public class BanHangContext : DbContext
     {
-        private DbSet<Categroies> _categroies;
-        private DbSet<Customers> _customers;
-        private DbSet<OrderDetails> _orderDetails;
-        private DbSet<Orders> _orders;
-        private DbSet<Products> _products;
-        private DbSet<Roles> _roles;
-        private DbSet<Staffs> _staffs;
+        public DbSet<Categroies> _categroies;
+        public DbSet<Customers> _customers;
+        public DbSet<OrderDetails> _orderDetails;
+        public DbSet<Orders> _orders;
+        public DbSet<Products> _products;
+        public DbSet<Roles> _roles;
+        public DbSet<Staffs> _staffs;
 
 
         public BanHangContext(DbContextOptions<BanHangContext> options)
@@ -40,7 +41,6 @@ namespace Website_BanHang.Models
                 .HasMaxLength(50)
                 .IsRequired();
             modelBuilder.Entity<Categroies>().Property(c => c.Image)
-                .HasMaxLength(250)
                 .IsRequired(false);
             modelBuilder.Entity<Categroies>().Property(c => c.Description)
                 .HasMaxLength(100)
@@ -66,8 +66,7 @@ namespace Website_BanHang.Models
                 .HasMaxLength(10)
                 .IsRequired();
             modelBuilder.Entity<Customers>().Property(c => c.Image)
-                            .HasMaxLength(250)
-                            .IsRequired(false);
+                .IsRequired(false);
 
 
             //Set Property table OrderDetails
@@ -105,7 +104,6 @@ namespace Website_BanHang.Models
                 .HasMaxLength(50)
                 .IsRequired();
             modelBuilder.Entity<Products>().Property(c => c.Image)
-                .HasMaxLength(250)
                 .IsRequired(false);
             modelBuilder.Entity<Products>().Property(c => c.Note)
                 .HasMaxLength(150)
@@ -180,5 +178,8 @@ namespace Website_BanHang.Models
         public DbSet<Website_BanHang.Models.Customers>? Customers { get; set; }
 
         public DbSet<Website_BanHang.Models.OrderDetails>? OrderDetails { get; set; }
+
+        public DbSet<Website_BanHang.Models.Staffs>? Staffs { get; set; }
+     
     }
 }

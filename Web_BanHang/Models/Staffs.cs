@@ -3,6 +3,10 @@ namespace Website_BanHang.Models
 {
     public class Staffs
     {
+        public Staffs()
+        {
+            Roles = new Roles();
+        }
         public int StaffCode { get; set; }
         public int RoleCode { get; set; }
         public string Email { get; set; }

@@ -161,27 +161,31 @@ namespace Web_BanHang.Controllers
             return View();
         }
 
-        public IActionResult StaffLogin(string email, string password)
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [ActionName("Login")]
+        public async Task<IActionResult> LoginConfirm(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
                 return View();
             }
-            SearchInfo(email, password);
-            HttpContext.Session.SetString("username", email);
-            HttpContext.Session.SetString("password", password);
-
-            return RedirectToAction("Index");
-        }
-        public static Staffs SearchInfo(string email, string password)
-        {
             HttpClient client = new HttpClient();//set đường dẫn cơ bản 
             client.BaseAddress = new Uri("https://localhost:7138/");
-            var JsonConnect = client.GetAsync("api/StaffsAPI/login").Result;//Trả về json
+            var JsonConnect = client.GetAsync($"api/StaffsAPI/login/{email}/{password}").Result;//Trả về json
             string JsonData = JsonConnect.Content.ReadAsStringAsync().Result;//trả về string
             //đọc list ddataa đối tượng 
             var model = JsonConvert.DeserializeObject<Staffs>(JsonData);
-            return model;
+            if (model != null)
+            {
+                HttpContext.Session.SetString("username", email);
+                HttpContext.Session.SetString("password", password);
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
 
@@ -193,10 +197,11 @@ namespace Web_BanHang.Controllers
             var JsonPush = client.PostAsJsonAsync("api/StaffsAPI/register", _staff).Result;//Trả về json
             if (JsonPush.IsSuccessStatusCode == true)
             {
-                return RedirectToAction("StaffLogin");
+                return RedirectToAction("Login");
             }
             return View();
         }
+
         public IActionResult Logout()
         {
 

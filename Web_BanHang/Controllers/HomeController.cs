@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using Newtonsoft.Json;
+using NuGet.Protocol;
 using Web_BanHang.Models;
 using Website_BanHang.Models;
 
@@ -42,52 +43,62 @@ namespace Web_BanHang.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public IActionResult Login(string email, string password)
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [ActionName("Login")]
+        public async Task<IActionResult> LoginConfirm(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
                 return View();
             }
-            SearchInfo(email, password);
-            HttpContext.Session.SetString("username", email);
-            HttpContext.Session.SetString("password", password);
-
-            user = email;
-            return RedirectToAction("Index");
-        }
-        public static Customers SearchInfo(string email, string password)
-        {
             HttpClient client = new HttpClient();//set đường dẫn cơ bản 
             client.BaseAddress = new Uri("https://localhost:7138/");
-            var JsonConnect = client.GetAsync("api/CustomersAPI/login").Result;//Trả về json
+            var JsonConnect = client.GetAsync($"api/CustomersAPI/login/{email}/{password}").Result;//Trả về json
             string JsonData = JsonConnect.Content.ReadAsStringAsync().Result;//trả về string
             //đọc list ddataa đối tượng 
             var model = JsonConvert.DeserializeObject<Customers>(JsonData);
-            return model;
-        }
+            if (model != null)
+            {
+                HttpContext.Session.SetString("username", email);
+                HttpContext.Session.SetString("password", password);
+                user = email;
+                return RedirectToAction("Index");
+            }
 
-       
-        public IActionResult Register([Bind("Email,Password,FullName,Address,Gender,PhoneNumber,Status")] Customers _customers, IFormFile image)
+            return View();
+        }
+        
+
+        [HttpPost, ActionName("Register")]
+        public async Task<IActionResult> RegisterConfirm([Bind("Email,Password,FullName,Address,Gender,PhoneNumber,Status")] Customers _customers, IFormFile image)
         {
             ModelState.Remove("Image");
             if (ModelState.IsValid && image != null)
             {
+
                 using (var stream = new MemoryStream())
                 {
-                    image.CopyToAsync(stream);
+                    await image.CopyToAsync(stream);
                     _customers.Image = stream.ToArray();
                 }
                 HttpClient client = new HttpClient();//set đường dẫn cơ bản 
                 client.BaseAddress = new Uri("https://localhost:7138/");
+                
                 var JsonPush = client.PostAsJsonAsync("api/CustomersAPI/register", _customers).Result;//Trả về json
                 if (JsonPush.IsSuccessStatusCode == true)
                 {
                     return RedirectToAction("Login");
                 }
             }
-            return View();
+
+            return View("Login");
         }
-        public IActionResult Logout()
+        [HttpPost, ActionName("Logout")]
+        public async Task<IActionResult> LogoutConfirm()
         {
 
             HttpContext.Session.Clear();
