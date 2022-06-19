@@ -127,6 +127,16 @@ namespace Web_BanHang.APIController
         [HttpPost("register")]
         public async Task<ActionResult<Staffs>> Register(Staffs staffs)
         {
+            if (_context.Staffs.Count(c => c.Email == staffs.Email) > 0)
+            {
+                return Conflict();
+            }
+
+            if (staffs.PhoneNumber.Length != 10)
+            {
+                return Problem("SĐT tối thiểu dài hơn 10 chữ số");
+            }
+
             if (_context.Staffs == null)
             {
                 return Problem("Entity set 'BanHangContext.Staffs'  is null.");

@@ -143,6 +143,15 @@ namespace Web_BanHang.APIController
             {
                 return Problem("Entity set 'BanHangContext.Customers'  is null.");
             }
+            if (_context.Staffs.Count(c => c.Email == customers.Email) > 0)
+            {
+                return Conflict();
+            }
+
+            if (customers.PhoneNumber.Length != 10)
+            {
+                return Problem("SĐT tối thiểu dài hơn 10 chữ số");
+            }
             _context.Customers.Add(customers);
             await _context.SaveChangesAsync();
 
