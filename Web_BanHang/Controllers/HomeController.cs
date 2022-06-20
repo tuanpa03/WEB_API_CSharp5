@@ -76,7 +76,6 @@ namespace Web_BanHang.Controllers
             ModelState.Remove("Image");
             if (ModelState.IsValid && image != null)
             {
-
                 using (var stream = new MemoryStream())
                 {
                     await image.CopyToAsync(stream);
@@ -85,7 +84,8 @@ namespace Web_BanHang.Controllers
                 HttpClient client = new HttpClient();//set đường dẫn cơ bản 
                 client.BaseAddress = new Uri("https://localhost:7138/");
                 
-                var JsonPush = client.PostAsJsonAsync("api/CustomersAPI/register", _customers).Result;//Trả về json
+                var JsonPush = await client.PostAsJsonAsync("api/CustomersAPI/register/", _customers);//Trả về json
+               
                 if (JsonPush.IsSuccessStatusCode == true)
                 {
                     return RedirectToAction("Login");

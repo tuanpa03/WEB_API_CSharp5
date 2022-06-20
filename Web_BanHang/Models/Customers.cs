@@ -10,7 +10,6 @@ namespace Website_BanHang.Models
             this.orders = new List<Orders>();
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public int CustomerCode { get; set; }
         [RegularExpression(@"^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$", ErrorMessage = "Vui lòng nhập đúng định dạng email")]
         public string Email { get; set; }
@@ -19,8 +18,8 @@ namespace Website_BanHang.Models
         public string FullName { get; set; }
         public string Address { get; set; }
         public bool Gender { get; set; } //true: Nam, false: Nữ
-        public string PhoneNumber { get; set; }
         [RegularExpression(@"(84|0[9])+([0-9]{8})\b", ErrorMessage = @"Vui lòng nhập đúng định dạng SĐT")]
+        public string PhoneNumber { get; set; }
         public byte[] Image { get; set; }
         public bool Status { get; set; } //true: Hoạt động, False: Không hoạt động
         public ICollection<Orders> orders { get; set; }
