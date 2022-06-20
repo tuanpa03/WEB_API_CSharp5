@@ -38,12 +38,12 @@ namespace Web_BanHang.Controllers
 
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context._products == null)
             {
                 return NotFound();
             }
 
-            var fragrant = await _context.Products
+            var fragrant = await _context._products
                 .FirstOrDefaultAsync(m => m.ProductCode == id);
             if (fragrant == null)
             {
@@ -95,12 +95,12 @@ namespace Web_BanHang.Controllers
         // GET: Admin/ProductType/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context._products == null)
             {
                 return NotFound();
             }
 
-            var fragrant = await _context.Products.FindAsync(id);
+            var fragrant = await _context._products.FindAsync(id);
             if (fragrant == null)
             {
                 return NotFound();
@@ -142,12 +142,12 @@ namespace Web_BanHang.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context._products == null)
             {
                 return NotFound();
             }
 
-            var products = await _context.Products
+            var products = await _context._products
                 .FirstOrDefaultAsync(m => m.ProductCode == id);
             if (products == null)
             {
@@ -161,7 +161,7 @@ namespace Web_BanHang.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Products == null)
+            if (_context._products == null)
             {
                 return Problem("Entity set 'BanHangContext.Products'  is null.");
             }
@@ -172,7 +172,7 @@ namespace Web_BanHang.Controllers
         }
         private bool FragrantExists(int id)
         {
-            return (_context.Products?.Any(e => e.ProductCode == id)).GetValueOrDefault();
+            return (_context._products?.Any(e => e.ProductCode == id)).GetValueOrDefault();
         }
     }
 }
