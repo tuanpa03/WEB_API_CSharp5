@@ -44,10 +44,7 @@ namespace Web_BanHang.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+       
         [ActionName("Login")]
         public async Task<IActionResult> LoginConfirm(string email, string password)
         {
@@ -57,11 +54,11 @@ namespace Web_BanHang.Controllers
             }
             HttpClient client = new HttpClient();//set đường dẫn cơ bản 
             client.BaseAddress = new Uri("https://localhost:7138/");
-            var JsonConnect = client.GetAsync($"api/CustomersAPI/login/{email}/{password}").Result;//Trả về json
+            var JsonConnect = await client.GetAsync($"api/CustomersAPI/login/{email}/{password}");//Trả về json
             string JsonData = JsonConnect.Content.ReadAsStringAsync().Result;//trả về string
             //đọc list ddataa đối tượng 
             var model = JsonConvert.DeserializeObject<Customers>(JsonData);
-            if (model != null)
+            if (JsonConnect.IsSuccessStatusCode)
             {
                 HttpContext.Session.SetString("username", email);
                 HttpContext.Session.SetString("password", password);
@@ -74,7 +71,7 @@ namespace Web_BanHang.Controllers
         
 
         [HttpPost, ActionName("Register")]
-        public async Task<IActionResult> RegisterConfirm([Bind("Email,Password,FullName,Address,Gender,PhoneNumber,Status")] Customers _customers, IFormFile image)
+        public async Task<IActionResult> RegisterConfirm([Bind("FullName,Email,Password,PhoneNumber,Address,Gender,Status")] Customers _customers, IFormFile image)
         {
             ModelState.Remove("Image");
             if (ModelState.IsValid && image != null)

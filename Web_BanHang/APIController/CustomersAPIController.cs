@@ -31,6 +31,16 @@ namespace Web_BanHang.APIController
             }
             return await _context.Customers.ToListAsync();
         }
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Customers>>> Search(string search)
+        {
+            if (_context.Categroies == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.Customers.Where(c => c.FullName == search).ToListAsync();
+        }
 
         // GET: api/CustomersAPI/5
         [HttpGet("{id}")]

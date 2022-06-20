@@ -48,6 +48,17 @@ namespace Web_BanHang.APIController
 
             return categroies;
         }
+        [HttpGet("searching/{search}")]
+        public async Task<ActionResult<IEnumerable<Categroies>>> GetCategroies(string search)
+        {
+            if (_context.Categroies == null)
+            {
+                return NotFound();
+
+            }
+
+            return await _context.Categroies.Where(c => c.CatName == search).ToListAsync();
+        }
 
         // PUT: api/Categroies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

@@ -178,7 +178,7 @@ namespace Web_BanHang.Controllers
             string JsonData = JsonConnect.Content.ReadAsStringAsync().Result;//trả về string
             //đọc list ddataa đối tượng 
             var model = JsonConvert.DeserializeObject<Staffs>(JsonData);
-            if (model != null)
+            if (JsonConnect.IsSuccessStatusCode)
             {
                 HttpContext.Session.SetString("username", email);
                 HttpContext.Session.SetString("password", password);
