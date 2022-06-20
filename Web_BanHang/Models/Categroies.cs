@@ -7,7 +7,7 @@ namespace Website_BanHang.Models
     {
         public Categroies()
         {
-            this.products = new List<Products>();
+            this.products = new HashSet<Products>();
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CatCode { get; set; }
