@@ -7,15 +7,6 @@ namespace Website_BanHang.Models
 {
     public class BanHangContext : DbContext
     {
-        public DbSet<Categroies> _categroies;
-        public DbSet<Customers> _customers;
-        public DbSet<OrderDetails> _orderDetails;
-        public DbSet<Orders> _orders;
-        public DbSet<Products> _products;
-        public DbSet<Roles> _roles;
-        public DbSet<Staffs> _staffs;
-
-
         public BanHangContext(DbContextOptions<BanHangContext> options)
             : base(options)
         { }
@@ -174,6 +165,12 @@ namespace Website_BanHang.Models
         }
 
         public DbSet<Website_BanHang.Models.Categroies>? Categroies { get; set; }
+
+        public DbSet<Website_BanHang.Models.Products>? Products { get; set; }
+
+        public DbSet<Website_BanHang.Models.Roles>? Roles { get; set; }
+
+        public DbSet<Website_BanHang.Models.Orders>? Orders { get; set; }
 
         public DbSet<Website_BanHang.Models.Customers>? Customers { get; set; }
 
