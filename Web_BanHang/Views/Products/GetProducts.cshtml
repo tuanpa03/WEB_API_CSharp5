@@ -13,13 +13,17 @@
                         {
                             foreach (var item in Model)
                             {
-                                
+                               
                                 string url = $"/{item.ProductName}-{item.CatCode}.html";
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="product-item">
                                         <div class="product-img img-zoom-effect">
                                             <a asp-controller="Product" asp-action="Details">
-                                                <img class="img-full" src="~/assets/images/product/medium-size/aodensocnu.jfif" alt="@item.Image">
+                                                @{
+                                var base64 = Convert.ToBase64String(item.Image);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                            <img src="@imgSrc"/>
                                             </a>
                                             <div class="product-add-action">
                                                 <ul>

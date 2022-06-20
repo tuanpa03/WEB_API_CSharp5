@@ -61,14 +61,21 @@ namespace Web_BanHang.Controllers
             ViewData["CatCode"] = new SelectList(_context.Categroies, "CatCode", "CatName");
             return View();
         }
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductCode,CatCode,ProductName,Quantity,Image,Price,Note")] Products products)
+        public async Task<IActionResult> Create([Bind("ProductCode,CatCode,ProductName,Quantity,Price,Note")] Products products, IFormFile image)
         {
             HttpClient client = new HttpClient();//set đường dẫn cơ bản 
             client.BaseAddress = new Uri("https://localhost:7138/add-products");
-            if (true)
+            ModelState.Remove("Image");
+            ModelState.Remove("Categroies");
+            if (ModelState.IsValid && image != null)
             {
+                using (var stream = new MemoryStream())
+                {
+                    await image.CopyToAsync(stream);
+                    products.Image = stream.ToArray();
+                }
                 _context.Add(products);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

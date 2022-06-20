@@ -3,6 +3,10 @@ namespace Website_BanHang.Models
 {
     public class Products
     {
+        public Products()
+        {
+            OrderDetails = new List<OrderDetails>();
+        }
         public int ProductCode { get; set; }
         public int CatCode { get; set; }
         public string ProductName { get; set; }
