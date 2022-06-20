@@ -24,7 +24,7 @@ namespace Web_BanHang.APIController
         [Route("api-get-list-sp")]
         public List<Products> GetListProducts()
         {
-            List<Products> result = _context._products.Where(p => p.Quantity > 0).ToList();
+            List<Products> result = _context.Products.Where(p => p.Quantity > 0).ToList();
             return result;
         }
         // GET: api/ProductsAPI
@@ -32,22 +32,22 @@ namespace Web_BanHang.APIController
         [Route("get-products")]
         public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
         {
-          if (_context._products == null)
+          if (_context.Products == null)
           {
               return NotFound();
           }
-            return await _context._products.ToListAsync();
+            return await _context.Products.ToListAsync();
         }
 
         // GET: api/ProductsAPI/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Products>> GetProducts(int id)
         {
-          if (_context._products == null)
+          if (_context.Products == null)
           {
               return NotFound();
           }
-            var products = await _context._products.FindAsync(id);
+            var products = await _context.Products.FindAsync(id);
 
             if (products == null)
             {
@@ -94,11 +94,11 @@ namespace Web_BanHang.APIController
         [Route("add-products")]
         public async Task<ActionResult<Products>> PostProducts(Products products)
         {
-          if (_context._products == null)
+          if (_context.Products == null)
           {
               return Problem("Entity set 'BanHangContext.Products'  is null.");
           }
-            _context._products.Add(products);
+            _context.Products.Add(products);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProducts", new { id = products.ProductCode }, products);
@@ -108,17 +108,17 @@ namespace Web_BanHang.APIController
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProducts(int id)
         {
-            if (_context._products == null)
+            if (_context.Products == null)
             {
                 return NotFound();
             }
-            var products = await _context._products.FindAsync(id);
+            var products = await _context.Products.FindAsync(id);
             if (products == null)
             {
                 return NotFound();
             }
 
-            _context._products.Remove(products);
+            _context.Products.Remove(products);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -126,7 +126,7 @@ namespace Web_BanHang.APIController
 
         private bool ProductsExists(int id)
         {
-            return (_context._products?.Any(e => e.ProductCode == id)).GetValueOrDefault();
+            return (_context.Products?.Any(e => e.ProductCode == id)).GetValueOrDefault();
         }
     }
 }
