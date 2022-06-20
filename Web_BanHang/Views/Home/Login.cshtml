@@ -73,9 +73,9 @@
         <div class="form login">
             <span class="title">Đăng nhập</span>
 
-            <form asp-controller="Home" asp-action="Login" method="post">
+            <form asp-controller="Home" asp-action="Login">
                 <div class="input-field">
-                    <input type="text" name="username" placeholder="Nhập email*" required>
+                    <input type="text" name="email" placeholder="Nhập email*" required>
                     <i class="uil uil-envelope icon"></i>
                 </div>
                 <div class="input-field">
@@ -110,27 +110,27 @@
         <div class="form signup">
             <span class="title">Đăng kí thành viên</span>
 
-            <form asp-controller="Home" asp-action="Register" method="post">
+            <form asp-controller="Home" asp-action="Register" method="post" enctype="multipart/form-data">
 
                 <div class="input-field">
-                    <input type="text" asp-for="FullName" placeholder="Họ và tên" required>
+                    <input asp:RegularExpressionValidator type="text" asp-for="FullName" placeholder="Họ và tên" required>
                     <i class="uil uil-user"></i>
                 </div>
                 <div class="input-field">
-                    <input type="text" asp-for="Email" placeholder="Nhập email*" required>
+                    <input asp:RegularExpressionValidator type="text" asp-for="Email" placeholder="Nhập email*" required>
                     <i class="uil uil-envelope icon"></i>
                 </div>
                 <div class="input-field">
-                    <input type="password" asp-for="Password" class="password" placeholder="Nhập mật khẩu*" required>
+                    <input asp:RegularExpressionValidator type="password" asp-for="Password" class="password" placeholder="Nhập mật khẩu*" required>
                     <i class="uil uil-lock icon"></i>
                 </div>
                 <div class="input-field">
-                    <input type="password" asp-for="Password" class="password" placeholder="Nhập lại mật khẩu*" required>
+                    <input asp:RegularExpressionValidator type="password" asp-for="Password" class="password" placeholder="Nhập lại mật khẩu*" required>
                     <i class="uil uil-lock icon"></i>
                     <i class="uil uil-eye-slash showHidePw"></i>
                 </div>
                 <div class="input-field">
-                    <input type="text" asp-for="PhoneNumber" placeholder="Phone number" required>
+                    <input asp:RegularExpressionValidator type="text" asp-for="PhoneNumber" placeholder="Phone number" required>
                     <i class="fa fa-phone" aria-hidden="true"></i>
                 </div>
                 <div class="input-field">
@@ -139,7 +139,7 @@
                 </div>
                 <div class="mt-4">
                     <label for="formFileMultiple" class="form-label">Chọn ảnh đại diện</label>
-                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                    <input name="image" class="form-control" type="file">
                 </div>
                 <div class="checkbox-text row align-items-start">
                     <label class="col-5">Giơi tính:</label>
