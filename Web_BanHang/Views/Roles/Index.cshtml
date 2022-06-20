@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Quản lý quyền truy";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "";
 }
 <h3>Danh sách quyền truy cập hệ thống 😉😉😉</h3>
 <div class="page-header">
@@ -20,25 +20,16 @@
 </p>
 <table class="table">
     <thead>
-        <tr>
-            @*<th>
-                @Html.DisplayNameFor(model => model.RoleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>*@
-            <th>#</th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.RoleName)*@
-                Quyền truy cập
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Description)*@
-                Mô tả chi tiết
-            </th>
-            <th>Chức năng</th>
-        </tr>
+    <tr>
+        <th>#</th>
+        <th>
+            Quyền truy cập
+        </th>
+        <th>
+            Mô tả chi tiết
+        </th>
+        <th>Chức năng</th>
+    </tr>
     </thead>
     <tbody style="vertical-align: middle;">
     @if (Model != null)

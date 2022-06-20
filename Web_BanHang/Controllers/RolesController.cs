@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Website_BanHang.Models;
 
 namespace Web_BanHang.Controllers
@@ -19,11 +20,16 @@ namespace Web_BanHang.Controllers
         }
 
         // GET: Roles
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-              return _context.Roles != null ? 
-                          View(await _context.Roles.ToListAsync()) :
-                          Problem("Entity set 'BanHangContext.Roles'  is null.");
+            HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+            client.BaseAddress = new Uri("https://localhost:7138/");
+            var JsonConnect = client.GetAsync("api/RolesAPI/roles").Result;//Trả về json
+            string JsonData = JsonConnect.Content.ReadAsStringAsync().Result;//trả về string
+            //đọc list ddataa đối tượng 
+            var model = JsonConvert.DeserializeObject<List<Roles>>(JsonData);
+            return View(model);
+
         }
 
         // GET: Roles/Details/5
@@ -54,14 +60,19 @@ namespace Web_BanHang.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RoleCode,RoleName,Description")] Roles roles)
         {
+            ModelState.Remove("staffs");
+            HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+            client.BaseAddress = new Uri("https://localhost:7138/");
             if (ModelState.IsValid)
             {
-                _context.Add(roles);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var myContent = JsonConvert.SerializeObject(roles);
+                var jsonContent = await client.PostAsJsonAsync("api/RolesAPI/add-roles", roles);
+                if (jsonContent.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View(roles);
         }
@@ -96,23 +107,17 @@ namespace Web_BanHang.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                ModelState.Remove("staffs");
+                HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+                client.BaseAddress = new Uri("https://localhost:7138/");
+                if (ModelState.IsValid)
                 {
-                    _context.Update(roles);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RolesExists(roles.RoleCode))
+                    var jsonContent = await client.PutAsJsonAsync("api/RolesAPI/update-roles/" + id, roles);
+                    if (jsonContent.IsSuccessStatusCode)
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        return RedirectToAction("Index");
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(roles);
         }
@@ -132,7 +137,7 @@ namespace Web_BanHang.Controllers
                 return NotFound();
             }
 
-            return View(roles);
+            return View();
         }
 
         // POST: Roles/Delete/5
@@ -144,14 +149,22 @@ namespace Web_BanHang.Controllers
             {
                 return Problem("Entity set 'BanHangContext.Roles'  is null.");
             }
-            var roles = await _context.Roles.FindAsync(id);
-            if (roles != null)
+
+            if (ModelState.IsValid)
             {
-                _context.Roles.Remove(roles);
+                ModelState.Remove("staffs");
+                HttpClient client = new HttpClient();//set đường dẫn cơ bản 
+                client.BaseAddress = new Uri("https://localhost:7138/");
+                if (ModelState.IsValid)
+                {
+                    var jsonContent = await client.DeleteAsync("api/RolesAPI/delete-roles/" + id);
+                    if (jsonContent.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View();
         }
 
         private bool RolesExists(int id)

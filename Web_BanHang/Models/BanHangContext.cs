@@ -7,12 +7,16 @@ namespace Website_BanHang.Models
 {
     public class BanHangContext : DbContext
     {
+        public BanHangContext()
+        {
+            
+        }
         public BanHangContext(DbContextOptions<BanHangContext> options)
             : base(options)
         { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-1D6NN35;Initial Catalog=Web_MVC_API_Final_CSharp5;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-V4BEME9\\SQLEXPRESS01;Initial Catalog=WebMVC_API_CSharp5;Integrated Security=True");
             //optionsBuilder.UseSqlServer("Data Source=DESKTOP-V4BEME9\\SQLEXPRESS01;Initial Catalog=QLBH_WebAPI;Persist Security Info=True;User ID=tuanpa03;Password=2002");
         }
 
